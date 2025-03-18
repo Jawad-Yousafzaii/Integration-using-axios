@@ -10,14 +10,17 @@ function Signup() {
 
   const handleSignup = async () => {
     try {
-      await axios.post("http://localhost:5000/api/auth/signup", {
-        name,
-        email,
-        password,
-      });
+      await axios.post(
+        "https://backend-for-integration-2.onrender.com/api/auth/signup",
+        {
+          name,
+          email,
+          password,
+        }
+      );
 
       alert("Signup Successful");
-      navigate("/login");
+      navigate("/");
     } catch (error) {
       alert(error.response.data.error);
     }

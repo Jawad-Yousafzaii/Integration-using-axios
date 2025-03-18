@@ -10,15 +10,23 @@ function Login() {
 
   const handleLogin = async () => {
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/login", {
-        email,
-        password,
-      });
-      alert("Login Success");
-      localStorage.setItem("token", res.data.token);
-      navigate("/dashboard");
+      console.log("🔹 Sending Login Request...");
+      console.log("Email:", email);JWT_SECRET=your_secret_key
+      PORT=5000
+      
+      console.log("Password:", password);
+
+      const response = await axios.post(
+        "https://backend-for-integration-3.onrender.com/api/auth/login",
+        {
+          email,
+          password,
+        }
+      );
+
+      console.log("✅ Login Successful:", response.data);
     } catch (error) {
-      alert("Didn't match the DataBase");
+      console.log("❌ Login Error:", error.response?.data || error);
     }
   };
 
