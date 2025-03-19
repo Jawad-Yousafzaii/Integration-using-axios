@@ -1,68 +1,112 @@
-import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 
-function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
-
-  const handleLogin = async () => {
-    try {
-      console.log("🔹 Sending Login Request...");
-      console.log("Email:", email);JWT_SECRET=your_secret_key
-      PORT=5000
-      
-      console.log("Password:", password);
-
-      const response = await axios.post(
-        "https://backend-for-integration-3.onrender.com/api/auth/login",
-        {
-          email,
-          password,
-        }
-      );
-
-      console.log("✅ Login Successful:", response.data);
-    } catch (error) {
-      console.log("❌ Login Error:", error.response?.data || error);
-    }
+const Signup = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+  let Navigate = useNavigate();
+  const [message, setMessage] = useState("");
+  const API_URL = "https://reqres.in/api/login";
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  //it is the request in which we send the cridentials to the backend
+
+  // const handleSignup = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const res = await axios.post({ API_URL }, formData);
+  //     setMessage("Response Agya HUrrra");
+  //     console.log("Response ye aya ", res.data);
+  //   } catch (error) {
+  //     setMessage("jani error agya yar.");
+  //     console.log("error", error);
+  //   }
+  // };
+
+  // In this we are using the hardcoded data to test the signup functionality
+  // and we are not using the form data
+  const userData = {
+    email: "eve.holt@reqres.in", // Reqres ke test users
+    password: "cityslicka",
+  };
+
+  // In this we are using the hardcoded data to test the signup functionality
+  // and we are not using the form data
+  // const handleSignup = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const res = await axios.post(API_URL, userData);
+  //     setMessage("Response Agya HUrrra");
+  //     console.log("Response ye aya ", res.data);
+
+  //     Navigate("/dashboard");
+  //   } catch (error) {
+  //     setMessage("jani error agya yar.");
+  //     console.log("error", error);
+  //   }
+  // };
+
+  //Learning of saving the token in the loacal storage and fetching data using the token
+
+  //storing of the token in state
+  const [token, setToken] = useState(null);
+
+  const handleSignup = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await axios.post(API_URL, userData);
+
+      if (res.data.token) {
+        localStorage.setToken("token", res.data.token);
+        setMessage("Response Agya HUrrra");
+        console.log("Response ye aya ", res.data);
+      }
+    } catch (error) {
+      setMessage("jani error agya yar.");
+      console.log("error", error);
+    }
+
+    Navigate("/dashboard");
+  };
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100">
-      <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold text-center mb-6">
-          Login to Your Account
-        </h2>
+    <div className="max-w-md mx-auto p-6 bg-white shadow-md rounded-lg">
+      <h2 className="text-xl font-semibold mb-4">Signup</h2>
+      <form onSubmit={handleSignup} className="space-y-4">
         <input
           type="email"
+          name="email"
           placeholder="Email"
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full p-2 mb-3 border rounded-lg"
+          value={formData.email}
+          onChange={handleChange}
+          className="w-full p-2 border rounded-md"
+          required
         />
         <input
           type="password"
+          name="password"
           placeholder="Password"
-          onChange={(e) => setPassword(e.target.value)}
-          className="w-full p-2 mb-4 border rounded-lg"
+          value={formData.password}
+          onChange={handleChange}
+          className="w-full p-2 border rounded-md"
+          required
         />
         <button
-          onClick={handleLogin}
-          className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
+          type="submit"
+          className="w-full bg-blue-500 text-white p-2 rounded-md"
         >
-          Login
+          Signup
         </button>
-        <div className="w-full text-center flex justify-center items-center gap-2 mt-4">
-          <h1 className="text-sm">Don't Have An Account ?</h1>
-          <Link to="/signup" className="text-blue-400 font-bold">
-            Signup
-          </Link>
-        </div>
-      </div>
+      </form>
+      {message && <p className="mt-4 text-center">{message}</p>}
     </div>
   );
-}
+};
 
-export default Login;
+export default Signup;
