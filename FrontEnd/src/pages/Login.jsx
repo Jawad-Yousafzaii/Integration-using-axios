@@ -197,7 +197,7 @@ export default Signup;
             <p className="text-center text-red-500 mt-4">{message}</p>
           )}
         </div>
-        <div className="hidden md:block w-1/4 ml-8 p-4">
+        <div className="hidden lg:block w-[29vw] ml-8 p-4">
           <img
             className="rounded-xl"
             src="https://i.pinimg.com/736x/9a/c0/bf/9ac0bfd5f1002b066e26d6cd48cf5851.jpg"
