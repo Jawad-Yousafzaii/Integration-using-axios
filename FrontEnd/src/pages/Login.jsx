@@ -157,8 +157,8 @@ export default Signup;
           </pre>
         )}
       </div>
-      <div className="bg-gray-900 flex justify-center items-center min-h-screen p-6 overflow-y-hidden">
-        <div className="bg-gray-800 text-white rounded-lg shadow-xl w-full max-w-md p-8 h-[86vh] flex flex-col justify-center">
+      <div className="bg-gray-900 flex justify-center items-center min-h-[12rem] p-6 ">
+        <div className="bg-gray-800 text-white rounded-lg shadow-xl w-full h-[76.5vh] max-w-md p-8 flex flex-col justify-center">
           <h2 className="font-semibold text-3xl text-center text-[#5f81de]">
             Signup
           </h2>
@@ -170,7 +170,7 @@ export default Signup;
             <input
               type="email"
               name="email"
-              placeholder="Email"
+              placeholder="eve.holt@reqres.in"
               value={formData.email}
               onChange={handleChange}
               className="p-3 rounded-xl border border-gray-700 bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-[#1E3A8A] transition"
@@ -179,7 +179,7 @@ export default Signup;
             <input
               type="password"
               name="password"
-              placeholder="Password"
+              placeholder="cityslicka"
               value={formData.password}
               onChange={handleChange}
               className="p-3 rounded-xl border border-gray-700 bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-[#1E3A8A] transition"
@@ -197,9 +197,9 @@ export default Signup;
             <p className="text-center text-red-500 mt-4">{message}</p>
           )}
         </div>
-        <div className="hidden lg:block w-[29vw] ml-8 p-4">
+        <div className="hidden lg:block w-[330px] ml-8 p-4 ">
           <img
-            className="rounded-xl"
+            className="rounded-xl h-[76.5vh]"
             src="https://i.pinimg.com/736x/9a/c0/bf/9ac0bfd5f1002b066e26d6cd48cf5851.jpg"
             alt="Signup"
           />
