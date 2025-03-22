@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
+import api from "../Api/api";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -22,11 +23,11 @@ const Signup = () => {
     password: "cityslicka",
   };
 
-  const handleSignup = async (e) => {
+  const handleLogIn = async (e) => {
     e.preventDefault();
 
     try {
-      const res = await axios.post("https://reqres.in/api/login", userData);
+      const res = await api.post("/login", userData);
 
       if (res.data.token) {
         localStorage.setItem("token", res.data.token);
@@ -40,7 +41,7 @@ const Signup = () => {
 
     Navigate("/dashboard");
   };
-  const [showCode, setShowCode] = useState(false); // New state to manage code visibility
+  const [showCode, setShowCode] = useState(false);
 
   const code = `import axios from "axios";
 import { useState } from "react";
@@ -66,7 +67,7 @@ const Signup = () => {
     password: "cityslicka",
   };
 
-  const handleSignup = async (e) => {
+  const handleLogIn = async (e) => {
     e.preventDefault();
 
     try {
@@ -94,7 +95,7 @@ const Signup = () => {
             If you already have an account, sign up easily.
           </p>
 
-          <form onSubmit={handleSignup} className="flex flex-col gap-6 mt-6">
+          <form onSubmit={handleLogIn} className="flex flex-col gap-6 mt-6">
             <input
               type="email"
               name="email"
@@ -166,7 +167,7 @@ export default Signup;
             If you already have an account, sign up easily.
           </p>
 
-          <form onSubmit={handleSignup} className="flex flex-col gap-6 mt-6">
+          <form onSubmit={handleLogIn} className="flex flex-col gap-6 mt-6">
             <input
               type="email"
               name="email"
