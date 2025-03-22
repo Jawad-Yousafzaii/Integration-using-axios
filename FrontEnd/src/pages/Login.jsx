@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
-import api from "../Api/api";
+import api from "../services/api";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
