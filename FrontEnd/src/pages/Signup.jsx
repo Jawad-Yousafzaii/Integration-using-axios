@@ -1,64 +1,48 @@
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
-function Signup() {
-  const [name, setName] = useState("");
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  const [token, setToken] = useState(null);
+  const [error, setError] = useState(null);
 
-  const handleSignup = async () => {
+  const handleLogin = async () => {
     try {
-      await axios.post(
-        "https://backend-for-integration-2.onrender.com/api/auth/signup",
-        {
-          name,
-          email,
-          password,
-        }
-      );
-
-      alert("Signup Successful");
-      navigate("/");
-    } catch (error) {
-      alert(error.response.data.error);
+      const res = await axios.post("https://reqres.in/api/login", {
+        email,
+        password,
+      });
+      setToken(res.data.token);
+      localStorage.setItem("token", res.data.token);
+      setError(null);
+    } catch (err) {
+      setError("Invalid credentials");
     }
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100">
-      <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold text-center mb-6">
-          Create an Account
-        </h2>
-        <input
-          type="text"
-          placeholder="Name"
-          onChange={(e) => setName(e.target.value)}
-          className="w-full p-2 mb-3 border rounded-lg"
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full p-2 mb-3 border rounded-lg"
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          onChange={(e) => setPassword(e.target.value)}
-          className="w-full p-2 mb-4 border rounded-lg"
-        />
-        <button
-          onClick={handleSignup}
-          className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
-        >
-          Signup
-        </button>
-      </div>
+    <div className="p-5">
+      <h2>Login</h2>
+      <input
+        type="email"
+        placeholder="Email"
+        onChange={(e) => setEmail(e.target.value)}
+        className="border p-2 m-2"
+      />
+      <input
+        type="password"
+        placeholder="Password"
+        onChange={(e) => setPassword(e.target.value)}
+        className="border p-2 m-2"
+      />
+      <button onClick={handleLogin} className="bg-blue-500 text-white p-2">
+        Login
+      </button>
+      {token && <p>Token: {token}</p>}
+      {error && <p className="text-red-500">{error}</p>}
     </div>
   );
-}
+};
 
-export default Signup;
+export default Login;
