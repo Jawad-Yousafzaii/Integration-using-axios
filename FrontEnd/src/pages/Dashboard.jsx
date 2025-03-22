@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export default function BeginnerAPI() {
   const [users, setUsers] = useState([]);
@@ -52,22 +53,35 @@ export default function BeginnerAPI() {
   }
   `;
 
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/");
+  };
   return (
     <>
-      <div className="bg-gray-900">
-        <button
-          onClick={() => setShowCode(!showCode)}
-          className="mt-6 ml-20 mx-6 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition duration-300"
-        >
-          {showCode ? "Hide Code" : "Show Code"}
-        </button>
+      <div className="flex justify-between items-center bg-gray-900 p-4">
+        <div className="bg-gray-900">
+          <button
+            onClick={() => setShowCode(!showCode)}
+            className=" ml-20 mx-6 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition duration-300"
+          >
+            {showCode ? "Hide Code" : "Show Code"}
+          </button>
 
-        {/* Conditionally render the code block */}
-        {showCode && (
-          <pre className="mt-6 p-4 bg-gray-700 text-white rounded-lg whitespace-pre-wrap break-words">
-            <code>{code}</code>
-          </pre>
-        )}
+          {/* Conditionally render the code block */}
+          {showCode && (
+            <pre className="mt-6 p-4 bg-gray-700 text-white rounded-lg whitespace-pre-wrap break-words">
+              <code>{code}</code>
+            </pre>
+          )}
+        </div>
+        <button
+          onClick={handleLogout}
+          className="bg-red-500 text-white px-4 py-2 "
+        >
+          Logout
+        </button>
       </div>
       <div className="min-h-screen bg-gray-900 p-8 flex items-center justify-center">
         <div className="bg-gray-800 text-white rounded-lg shadow-xl w-full max-w-4xl p-8">
