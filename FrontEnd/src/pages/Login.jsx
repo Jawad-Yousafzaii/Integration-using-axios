@@ -161,7 +161,7 @@ export default Signup;
       <div className="bg-gray-900 flex justify-center items-center min-h-[12rem] p-6 ">
         <div className="bg-gray-800 text-white rounded-lg shadow-xl w-full h-[76.5vh] max-w-md p-8 flex flex-col justify-center">
           <h2 className="font-semibold text-3xl text-center text-[#5f81de]">
-            Signup
+            LogIn
           </h2>
           <p className="text-sm text-center text-gray-400 mt-2">
             If you already have an account, sign up easily.
